@@ -10,7 +10,7 @@ export const App = () => {
         color: '#010101'
       }}
     >
-      Phonebook - 4
+      Phonebook - 4 hooks
     </div>
   );
 };
