@@ -1,6 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import * as yup from 'yup';
+import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormContainer, InputAndLabelContainer, InputsContainer, ErrorText } from './ContactForm.styled';
 
@@ -82,4 +83,9 @@ export class ContactForm extends React.Component {
       </FormContainer>
     )
   }
+}
+
+ContactForm.propTypes = {
+  onAddContact: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }

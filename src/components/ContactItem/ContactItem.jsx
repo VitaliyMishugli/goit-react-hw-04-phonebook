@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 
-
 export const ContactItem = ({ id, name, number, onDeleteContact }) => {
   return (
   <>
