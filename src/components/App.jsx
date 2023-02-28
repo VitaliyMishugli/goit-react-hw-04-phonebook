@@ -15,7 +15,6 @@ const contactsArray = [
 const contactId = nanoid();
 
 export const App = () => {
-
   const [contacts, setContacts] = useState(contactsArray);
   const [filter, setFilter] = useState('');
 
@@ -56,7 +55,7 @@ export const App = () => {
 
   const normalizedFilter = filter.toLowerCase();
   // console.log(normalizedFilter);
-  const visibleContacts = contacts.filter(contact => contact.name);
+  const visibleContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
 
   // const visibleContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
 
