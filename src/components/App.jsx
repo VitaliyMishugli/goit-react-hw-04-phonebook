@@ -1,11 +1,11 @@
 // import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from 'nanoid';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { ContactForm } from './ContactForm/ContactForm';
 
-// const LS_KEY = 'contacts';
+const LS_KEY = 'contacts';
 const contactsArray = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
@@ -15,8 +15,21 @@ const contactsArray = [
 const contactId = nanoid();
 
 export const App = () => {
-  const [contacts, setContacts] = useState(contactsArray);
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(window.localStorage.getItem(LS_KEY)) ?? contactsArray;
+  });
   const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    if (JSON.parse(window.localStorage.getItem(LS_KEY)).length === 0 || JSON.parse(window.localStorage.getItem(LS_KEY)) === null) {
+      window.localStorage.setItem(LS_KEY, JSON.stringify(contactsArray));
+    }
+      setContacts(JSON.parse(window.localStorage.getItem(LS_KEY)));     
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem(LS_KEY, JSON.stringify(contacts));
+  }, [contacts])
 
   const addContact = (name, number) => {
     if (contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())) {

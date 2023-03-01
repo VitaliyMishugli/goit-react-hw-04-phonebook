@@ -1,4 +1,5 @@
-import React from 'react';
+// import {useState} from 'react';
+// import React from 'react';
 import { nanoid } from 'nanoid';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
@@ -18,26 +19,26 @@ const FormError = ({ name }) => {
     />
   )
 }
-export class ContactForm extends React.Component {
-  state = {
-    name: '',
-    number: ''
-  }
 
-  contactId = nanoid();
-  inputNameId = nanoid();
-  inputNumberId = nanoid();
+export const ContactForm = ({onSubmit}) => {
+  // const [name, setName] = useState('');
+  // const [number, setNumber] = useState('');
 
-  render() {
-    const initialValues = {
+  // const contactId = nanoid();
+  const inputNameId = nanoid();
+  const inputNumberId = nanoid();
+
+  const initialValues = {
       name: '',
       number: ''
     }
-    const handleSubmit = (values, { resetForm }) => {
-      this.props.onSubmit(values);
+
+  const handleSubmit = (values, { resetForm }) => {
+      onSubmit(values);
       resetForm();
     }
-    return (
+
+  return (
       <FormContainer >
         <Formik
           initialValues={initialValues}
@@ -47,9 +48,9 @@ export class ContactForm extends React.Component {
           <Form>
             <InputsContainer>
               <InputAndLabelContainer>
-                <label htmlFor={this.inputNameId}>Name</label>
+                <label htmlFor={inputNameId}>Name</label>
                 <Field
-                  id={this.inputNameId}
+                  id={inputNameId}
                   autoComplete="off"
                   type="text"
                   name="name"
@@ -63,9 +64,9 @@ export class ContactForm extends React.Component {
               </InputAndLabelContainer>
 
               <InputAndLabelContainer>
-                <label htmlFor={this.inputNumberId}>Number</label>
+                <label htmlFor={inputNumberId}>Number</label>
                 <Field
-                  id={this.inputNumberId}
+                  id={inputNumberId}
                   type="tel"
                   name="number"
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -82,8 +83,76 @@ export class ContactForm extends React.Component {
         </Formik>
       </FormContainer>
     )
-  }
 }
+
+
+// ====== Class component ========
+// export class ContactForm extends React.Component {
+//   state = {
+//     name: '',
+//     number: ''
+//   }
+
+//   contactId = nanoid();
+//   inputNameId = nanoid();
+//   inputNumberId = nanoid();
+
+//   render() {
+//     const initialValues = {
+//       name: '',
+//       number: ''
+//     }
+//     const handleSubmit = (values, { resetForm }) => {
+//       this.props.onSubmit(values);
+//       resetForm();
+//     }
+//     return (
+//       <FormContainer >
+//         <Formik
+//           initialValues={initialValues}
+//           onSubmit={handleSubmit}
+//           validationSchema={schema}
+//         >
+//           <Form>
+//             <InputsContainer>
+//               <InputAndLabelContainer>
+//                 <label htmlFor={this.inputNameId}>Name</label>
+//                 <Field
+//                   id={this.inputNameId}
+//                   autoComplete="off"
+//                   type="text"
+//                   name="name"
+//                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+//                   title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+//                   // value={this.state.name}
+//                   // onChange={this.handleChange}
+//                   // required
+//                 />
+//                 <FormError name='name' />
+//               </InputAndLabelContainer>
+
+//               <InputAndLabelContainer>
+//                 <label htmlFor={this.inputNumberId}>Number</label>
+//                 <Field
+//                   id={this.inputNumberId}
+//                   type="tel"
+//                   name="number"
+//                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+//                   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+//                   // value={this.state.number}
+//                   // onChange={this.handleChange}
+//                   // required
+//                 />
+//                 <FormError name='number' />
+//               </InputAndLabelContainer>
+//             </InputsContainer>
+//             <button type='submit'>Add contact</button>
+//           </Form>
+//         </Formik>
+//       </FormContainer>
+//     )
+//   }
+// }
 
 ContactForm.propTypes = {
   onAddContact: PropTypes.func.isRequired,
